@@ -20,7 +20,7 @@ logs/
 # Spring Boot runtime uploads
 /files/
 
-# Node / Vue
+# Node / Vuephoto/
 node_modules/
 **/dist/
 **/.vite/
@@ -30,3 +30,5 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+photo/
