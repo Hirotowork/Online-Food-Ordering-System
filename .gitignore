@@ -1,0 +1,32 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Logs
+*.log
+logs/
+
+# Java / Maven
+**/target/
+*.class
+
+# Spring Boot runtime uploads
+/files/
+
+# Node / Vue
+node_modules/
+**/dist/
+**/.vite/
+**/*.tsbuildinfo
+
+# Env files
+.env
+.env.*
+!.env.example
