@@ -9,6 +9,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TablesService {
@@ -58,6 +59,13 @@ public class TablesService {
         if (dbTables != null && !dbTables.getId().equals(tables.getId())) {
             throw new CustomException("您已经预定了其他餐桌");
         }
+        Tables currentTable = tablesMapper.selectById(tables.getId());
+        if (currentTable == null) {
+            throw new CustomException("餐桌不存在");
+        }
+        if (!"是".equals(currentTable.getFree()) && !Objects.equals(currentTable.getUserId(), tables.getUserId())) {
+            throw new CustomException("该餐桌已被占用");
+        }
         tables.setFree("否");
         this.updateById(tables);
     }
@@ -67,6 +75,38 @@ public class TablesService {
     }
 
     public void removeOrder(Tables tables) {
+        tablesMapper.removeOrder(tables.getId());
+    }
+
+    public Tables selectCurrentTable(Integer currentUserId) {
+        if (currentUserId == null) {
+            throw new CustomException("请先登录");
+        }
+        return tablesMapper.selectByUserId(currentUserId);
+    }
+
+    public Tables reserveCurrentTable(Integer tableId, Integer currentUserId) {
+        if (currentUserId == null) {
+            throw new CustomException("请先登录");
+        }
+        if (tableId == null) {
+            throw new CustomException("请选择餐桌");
+        }
+        Tables tables = new Tables();
+        tables.setId(tableId);
+        tables.setUserId(currentUserId);
+        this.addOrder(tables);
+        return this.selectById(tableId);
+    }
+
+    public void removeCurrentTable(Integer currentUserId) {
+        if (currentUserId == null) {
+            throw new CustomException("请先登录");
+        }
+        Tables tables = tablesMapper.selectByUserId(currentUserId);
+        if (tables == null) {
+            return;
+        }
         tablesMapper.removeOrder(tables.getId());
     }
 }

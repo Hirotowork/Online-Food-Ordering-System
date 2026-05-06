@@ -1,0 +1,9 @@
+{
+  "desc": "Canteen user miniapp sitemap",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

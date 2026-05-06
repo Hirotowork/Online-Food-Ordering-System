@@ -11,7 +11,6 @@
         <el-button type="primary" @click="handleAdd">新增</el-button>
       </div>
       <el-table :data="data.tableData">
-        <el-table-column prop="id" label="序号" width="70"/>
         <el-table-column prop="name" label="名称"/>
         <el-table-column prop="descr" label="简介"/>
         <el-table-column prop="price" label="价格"/>

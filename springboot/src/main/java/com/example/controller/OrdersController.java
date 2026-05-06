@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AuthContext;
 import com.example.common.Result;
 import com.example.entity.Orders;
 import com.example.service.OrdersService;
@@ -23,6 +24,12 @@ public class OrdersController {
     public Result add(@RequestBody Orders orders) {
         ordersService.add(orders);
         return Result.success();
+    }
+
+    @PostMapping
+    public Result create(@RequestBody Orders orders) {
+        Orders latestOrder = ordersService.addForCurrentUser(orders, AuthContext.getCurrentUserId());
+        return Result.success(latestOrder);
     }
 
     /**
@@ -50,6 +57,18 @@ public class OrdersController {
     public Result update(@RequestBody Orders orders) {
         ordersService.updateById(orders);
         return Result.success();
+    }
+
+    @GetMapping("/my")
+    public Result myOrders() {
+        List<Orders> list = ordersService.selectMyOrders(AuthContext.getCurrentUserId());
+        return Result.success(list);
+    }
+
+    @PostMapping("/{id}/settle")
+    public Result settle(@PathVariable Integer id) {
+        Orders orders = ordersService.settleOrder(id, AuthContext.getCurrentUserId());
+        return Result.success(orders);
     }
 
     /**

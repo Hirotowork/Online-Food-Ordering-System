@@ -12,7 +12,6 @@
         <el-button type="primary" @click="handleAdd">新增</el-button>
       </div>
       <el-table :data="data.tableData">
-        <el-table-column prop="id" label="序号" width="70"/>
         <el-table-column prop="no" label="餐桌号"/>
         <el-table-column prop="unit" label="规格"/>
         <el-table-column prop="free" label="是否空闲"></el-table-column>

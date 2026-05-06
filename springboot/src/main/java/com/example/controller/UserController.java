@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AuthContext;
 import com.example.common.Result;
 import com.example.entity.User;
 import com.example.service.UserService;
@@ -50,6 +51,18 @@ public class UserController {
     public Result update(@RequestBody User user) {
         userService.updateById(user);
         return Result.success();
+    }
+
+    @GetMapping("/me")
+    public Result selectMe() {
+        User user = userService.selectCurrentUser(AuthContext.getCurrentUserId());
+        return Result.success(user);
+    }
+
+    @PutMapping("/me")
+    public Result updateMe(@RequestBody User user) {
+        User latestUser = userService.updateProfile(AuthContext.getCurrentUserId(), user);
+        return Result.success(latestUser);
     }
 
     /**

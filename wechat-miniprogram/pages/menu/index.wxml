@@ -1,0 +1,123 @@
+<view class="page menu-page">
+  <view wx:if="{{currentTable}}" class="card table-card">
+    <view class="table-top">
+      <view>
+        <view class="page-title">餐桌 {{currentTable.no}}</view>
+        <view class="page-subtitle">{{currentTable.unit}}，已进入点餐状态</view>
+      </view>
+      <button class="table-action" bindtap="openCart">购物车 {{cartCount}}</button>
+    </view>
+    <view class="table-actions">
+      <button class="ghost-btn" bindtap="goTablePage">换桌</button>
+      <button class="ghost-btn danger-btn" bindtap="removeTable">退桌</button>
+    </view>
+  </view>
+
+  <view wx:else class="card empty-card">
+    <view class="page-title">还没有选桌</view>
+    <view class="page-subtitle">请先回到选桌页占用一个可用餐桌，再继续点餐和下单。</view>
+    <button class="primary-btn" bindtap="goTablePage">去选桌</button>
+  </view>
+
+  <view class="section-row">
+    <view class="section-title">今日菜品</view>
+    <view class="muted">{{foods.length}} 道菜</view>
+  </view>
+
+  <view wx:if="{{!loading && foods.length === 0}}" class="card empty-state">
+    当前没有菜品数据
+  </view>
+
+  <view wx:for="{{foods}}" wx:key="id" class="card food-card">
+    <image
+      class="food-image"
+      src="{{item.img || fallbackImage}}"
+      mode="aspectFill"
+    />
+
+    <view class="food-body">
+      <view class="food-header">
+        <view class="food-name">{{item.name}}</view>
+        <view class="food-price">￥{{item.price}}</view>
+      </view>
+      <view class="food-descr">{{item.descr || '暂无菜品描述'}}</view>
+
+      <view class="food-footer">
+        <view class="stepper">
+          <button class="stepper-btn" data-index="{{index}}" bindtap="decreaseDraftCount">-</button>
+          <view class="stepper-value">{{item.draftCount}}</view>
+          <button class="stepper-btn" data-index="{{index}}" bindtap="increaseDraftCount">+</button>
+        </view>
+
+        <button
+          class="mini-primary-btn"
+          data-index="{{index}}"
+          bindtap="addToCart"
+          disabled="{{!currentTable}}"
+        >
+          加入
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{currentTable}}" class="cart-bar">
+    <view class="cart-summary" bindtap="openCart">
+      <view class="cart-badge">{{cartCount}}</view>
+      <view>
+        <view class="cart-title">已选 {{cartCount}} 份</view>
+        <view class="cart-total">合计 ￥{{cartTotalText}}</view>
+      </view>
+    </view>
+    <button
+      class="cart-submit-btn"
+      bindtap="submitOrder"
+      disabled="{{cartCount === 0 || submitLoading}}"
+      loading="{{submitLoading}}"
+    >
+      提交订单
+    </button>
+  </view>
+
+  <view wx:if="{{cartVisible}}" class="mask" bindtap="closeCart"></view>
+  <view wx:if="{{cartVisible}}" class="cart-panel">
+    <view class="cart-panel-header">
+      <view class="section-title">购物车</view>
+      <view class="clear-action" bindtap="clearCart">清空</view>
+    </view>
+
+    <view wx:if="{{cartItems.length === 0}}" class="empty-state cart-empty">
+      购物车还是空的
+    </view>
+
+    <view wx:for="{{cartItems}}" wx:key="id" class="cart-item">
+      <view class="cart-item-main">
+        <view class="cart-item-name">{{item.name}}</view>
+        <view class="cart-item-price">￥{{item.price}}</view>
+      </view>
+      <view class="cart-item-actions">
+        <view class="stepper">
+          <button class="stepper-btn" data-index="{{index}}" bindtap="decreaseCartCount">-</button>
+          <view class="stepper-value">{{item.num}}</view>
+          <button class="stepper-btn" data-index="{{index}}" bindtap="increaseCartCount">+</button>
+        </view>
+        <view class="cart-item-subtotal">小计 ￥{{item.subtotalText}}</view>
+      </view>
+    </view>
+
+    <view class="cart-panel-footer">
+      <view>
+        <view class="muted">订单总价</view>
+        <view class="cart-footer-total">￥{{cartTotalText}}</view>
+      </view>
+      <button
+        class="mini-primary-btn"
+        bindtap="submitOrder"
+        disabled="{{cartCount === 0 || submitLoading}}"
+        loading="{{submitLoading}}"
+      >
+        下单
+      </button>
+    </view>
+  </view>
+</view>

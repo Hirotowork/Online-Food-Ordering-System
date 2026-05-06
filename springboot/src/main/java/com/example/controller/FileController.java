@@ -1,9 +1,12 @@
 package com.example.controller;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
 import com.example.common.Result;
 import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,11 +29,14 @@ public class FileController {
     private static final File AVATAR_DIR = new File(PHOTO_DIR, "人物头像");
     private static final File FOOD_DIR = new File(PHOTO_DIR, "菜品图片");
 
+    @Value("${app.base-url:}")
+    private String appBaseUrl;
+
     /**
      * 文件上传
      */
     @PostMapping("/upload")
-    public Result upload(MultipartFile file) throws IOException {
+    public Result upload(MultipartFile file, HttpServletRequest request) throws IOException {
         if (!FileUtil.exist(PHOTO_DIR)) {
             FileUtil.mkdir(PHOTO_DIR);
         }
@@ -42,7 +48,7 @@ public class FileController {
             localFile = new File(PHOTO_DIR, originalFilename);
         }
         file.transferTo(localFile);
-        String url = "http://localhost:9090/files/download/" + originalFilename;
+        String url = resolveBaseUrl(request) + "/files/download/" + originalFilename;
         return Result.success(url);
     }
 
@@ -121,5 +127,20 @@ public class FileController {
         }
 
         return current;
+    }
+
+    private String resolveBaseUrl(HttpServletRequest request) {
+        if (StrUtil.isNotBlank(appBaseUrl)) {
+            return StrUtil.removeSuffix(appBaseUrl, "/");
+        }
+
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int serverPort = request.getServerPort();
+        boolean defaultPort = ("http".equalsIgnoreCase(scheme) && serverPort == 80)
+                || ("https".equalsIgnoreCase(scheme) && serverPort == 443);
+        return defaultPort
+                ? scheme + "://" + serverName
+                : scheme + "://" + serverName + ":" + serverPort;
     }
 }

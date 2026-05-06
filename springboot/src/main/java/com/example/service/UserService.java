@@ -87,6 +87,30 @@ public class UserService {
         return userMapper.selectById(id);
     }
 
+    public User selectCurrentUser(Integer currentUserId) {
+        if (currentUserId == null) {
+            throw new CustomException("请先登录");
+        }
+        User user = userMapper.selectById(currentUserId);
+        if (user == null) {
+            throw new CustomException("用户不存在");
+        }
+        user.setPassword(null);
+        return user;
+    }
+
+    public User updateProfile(Integer currentUserId, User user) {
+        User dbUser = this.selectCurrentUser(currentUserId);
+        User updateUser = new User();
+        updateUser.setId(currentUserId);
+        updateUser.setName(ObjectUtil.isNotEmpty(user.getName()) ? user.getName() : dbUser.getName());
+        updateUser.setPhone(ObjectUtil.isNotEmpty(user.getPhone()) ? user.getPhone() : dbUser.getPhone());
+        updateUser.setSex(ObjectUtil.isNotEmpty(user.getSex()) ? user.getSex() : dbUser.getSex());
+        updateUser.setAvatar(ObjectUtil.isNotEmpty(user.getAvatar()) ? user.getAvatar() : dbUser.getAvatar());
+        userMapper.updateById(updateUser);
+        return this.selectCurrentUser(currentUserId);
+    }
+
     public List<User> selectAll(String name) {
         return userMapper.selectAll(name);
     }

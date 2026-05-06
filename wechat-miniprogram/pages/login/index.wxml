@@ -1,0 +1,31 @@
+<view class="page login-page">
+  <view class="hero">
+    <view class="hero-badge">USER MINIAPP</view>
+    <view class="hero-title">食堂点餐用户端</view>
+    <view class="hero-subtitle">登录后即可开始选桌和点餐。</view>
+  </view>
+
+  <view class="card form-card">
+    <view class="field-label">账号</view>
+    <input
+      class="field-input"
+      type="text"
+      placeholder="请输入账号"
+      value="{{form.username}}"
+      bindinput="onUsernameInput"
+    />
+
+    <view class="field-label">密码</view>
+    <input
+      class="field-input"
+      password="true"
+      placeholder="请输入密码"
+      value="{{form.password}}"
+      bindinput="onPasswordInput"
+    />
+
+    <button class="primary-btn" loading="{{loading}}" disabled="{{loading}}" bindtap="submitLogin">
+      登录并进入点餐
+    </button>
+  </view>
+</view>

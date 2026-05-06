@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AuthContext;
 import com.example.common.Result;
 import com.example.entity.Tables;
 import com.example.service.TablesService;
@@ -61,6 +62,24 @@ public class TablesController {
     @PutMapping("/removeOrder")
     public Result removeOrder(@RequestBody Tables tables) {
         tablesService.removeOrder(tables);
+        return Result.success();
+    }
+
+    @GetMapping("/current")
+    public Result current() {
+        Tables tables = tablesService.selectCurrentTable(AuthContext.getCurrentUserId());
+        return Result.success(tables);
+    }
+
+    @PostMapping("/current")
+    public Result reserveCurrent(@RequestBody Tables tables) {
+        Tables latestTable = tablesService.reserveCurrentTable(tables.getId(), AuthContext.getCurrentUserId());
+        return Result.success(latestTable);
+    }
+
+    @DeleteMapping("/current")
+    public Result removeCurrent() {
+        tablesService.removeCurrentTable(AuthContext.getCurrentUserId());
         return Result.success();
     }
 

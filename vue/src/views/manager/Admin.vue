@@ -12,7 +12,6 @@
         <el-button type="primary" @click="handleAdd">新增</el-button>
       </div>
       <el-table :data="data.tableData" style="width: 100%">
-        <el-table-column prop="id" label="序号" width="70"/>
         <el-table-column prop="username" label="账号"/>
         <el-table-column prop="name" label="名称"/>
         <el-table-column prop="avatar" label="头像">
