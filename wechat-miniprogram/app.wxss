@@ -1,5 +1,5 @@
 page {
-  background: #f4f7f6;
+  background: #f8f8ff;
   color: #14213d;
   font-size: 28rpx;
   overflow-x: hidden;
@@ -16,7 +16,7 @@ page {
   background: #ffffff;
   border-radius: 24rpx;
   padding: 28rpx;
-  box-shadow: 0 18rpx 40rpx rgba(15, 118, 110, 0.08);
+  box-shadow: 0 18rpx 40rpx rgba(20, 80, 170, 0.08);
   box-sizing: border-box;
 }
 
@@ -31,7 +31,7 @@ button::after {
 .page-title {
   font-size: 40rpx;
   font-weight: 700;
-  color: #0f172a;
+  color: #1450aa;
 }
 
 .page-subtitle {
@@ -45,7 +45,7 @@ button::after {
   height: 88rpx;
   line-height: 88rpx;
   border-radius: 999rpx;
-  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  background: #1450aa;
   color: #ffffff;
   font-size: 30rpx;
   border: none;
@@ -60,10 +60,10 @@ button::after {
   height: 84rpx;
   line-height: 84rpx;
   border-radius: 999rpx;
-  background: #ecfeff;
-  color: #0f766e;
+  background: #e9eeff;
+  color: #1450aa;
   font-size: 28rpx;
-  border: 2rpx solid #99f6e4;
+  border: 2rpx solid #cfd9ff;
 }
 
 .muted {

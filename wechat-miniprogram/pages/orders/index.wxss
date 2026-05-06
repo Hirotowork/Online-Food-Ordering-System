@@ -17,7 +17,7 @@
 .order-no {
   font-size: 30rpx;
   font-weight: 700;
-  color: #0f172a;
+  color: #1450aa;
 }
 
 .order-time {
@@ -45,18 +45,18 @@
 }
 
 .status-preparing {
-  background: #fef3c7;
-  color: #92400e;
+  background: #fff4de;
+  color: #b7791f;
 }
 
 .status-pending {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: #e9eeff;
+  color: #1450aa;
 }
 
 .status-finished {
-  background: #dcfce7;
-  color: #166534;
+  background: #e9eeff;
+  color: #1450aa;
 }
 
 .status-btn {

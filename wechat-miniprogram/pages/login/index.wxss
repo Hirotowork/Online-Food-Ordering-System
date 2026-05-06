@@ -1,34 +1,21 @@
 .login-page {
-  background:
-    radial-gradient(circle at top left, rgba(20, 184, 166, 0.22), transparent 34%),
-    linear-gradient(180deg, #effcf8 0%, #f4f7f6 38%, #f4f7f6 100%);
+  background: #f8f8ff;
 }
 
 .hero {
-  padding: 40rpx 8rpx 32rpx;
-}
-
-.hero-badge {
-  display: inline-block;
-  padding: 8rpx 18rpx;
-  border-radius: 999rpx;
-  background: rgba(15, 118, 110, 0.1);
-  color: #0f766e;
-  font-size: 22rpx;
-  letter-spacing: 2rpx;
+  padding: 56rpx 8rpx 32rpx;
 }
 
 .hero-title {
-  margin-top: 24rpx;
   font-size: 56rpx;
   line-height: 1.15;
   font-weight: 700;
-  color: #0f172a;
+  color: #1450aa;
 }
 
 .hero-subtitle {
   margin-top: 18rpx;
-  color: #475569;
+  color: #666;
   line-height: 1.7;
 }
 
@@ -39,7 +26,7 @@
 .field-label {
   margin-bottom: 14rpx;
   font-size: 26rpx;
-  color: #334155;
+  color: #333;
 }
 
 .field-input {
@@ -47,7 +34,11 @@
   padding: 0 28rpx;
   margin-bottom: 28rpx;
   border-radius: 20rpx;
-  background: #f8fafc;
-  border: 2rpx solid #dbe5e4;
+  background: #ffffff;
+  border: 2rpx solid #dbe6ff;
   box-sizing: border-box;
+}
+
+.switch-btn {
+  margin-top: 20rpx;
 }

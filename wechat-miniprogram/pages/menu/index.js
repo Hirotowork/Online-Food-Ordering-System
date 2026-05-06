@@ -271,13 +271,14 @@ Page({
     try {
       const content = this.data.cartItems
         .map(item => `${item.name}x${item.num}`)
-        .join('，')
+        .join(', ')
 
       const payload = {
         content,
         total: Number(this.data.cartTotal.toFixed(2)),
         status: '待出餐'
       }
+
       await requestWithFallback(
         {
           url: '/orders',

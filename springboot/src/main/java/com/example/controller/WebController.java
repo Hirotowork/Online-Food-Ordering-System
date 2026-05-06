@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.example.common.Result;
 import com.example.common.RoleEnum;
 import com.example.common.TokenUtils;
@@ -33,6 +34,9 @@ public class WebController {
 
     @PostMapping("/login")
     public Result login(@RequestBody Account account) {
+        if (StrUtil.isBlank(account.getRole())) {
+            account.setRole(RoleEnum.ADMIN.name());
+        }
         return doLogin(account);
     }
 
@@ -48,7 +52,7 @@ public class WebController {
 
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
-        return doRegister(user);
+        return Result.error("请使用微信小程序注册用户账号");
     }
 
     private Result doLogin(Account account) {

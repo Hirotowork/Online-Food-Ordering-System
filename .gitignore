@@ -1,35 +1,66 @@
-# OS files
+# OS
 .DS_Store
 Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 
-# IDE
+# Editors / IDEs
 .idea/
 .vscode/
 *.iml
 *.ipr
 *.iws
+*.suo
+*.user
+*.userossc
+*.sln.docstates
 
-# Logs
+# Logs and runtime files
 *.log
+*.log.*
 logs/
+*.pid
+*.pid.lock
+hs_err_pid*
+replay_pid*
 
-# Java / Maven
+# Java / Maven / JVM build output
 **/target/
+**/build/
 *.class
+*.jar
+*.war
+*.nar
 
-# Spring Boot runtime uploads
-/files/
-
-# Node / Vuephoto/
-node_modules/
+# Frontend / Node.js
+**/node_modules/
 **/dist/
 **/.vite/
+**/coverage/
+**/.cache/
 **/*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Env files
+# Environment files
 .env
 .env.*
 !.env.example
 
-photo/
+# Local temp files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Runtime uploads / local assets
+/files/
+/photo/
+
+# WeChat Mini Program local config / dependencies
 wechat-miniprogram/project.private.config.json
+wechat-miniprogram/miniprogram_npm/
+wechat-miniprogram/node_modules/

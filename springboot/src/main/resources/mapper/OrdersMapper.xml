@@ -5,8 +5,8 @@
 <mapper namespace="com.example.mapper.OrdersMapper">
 
     <insert id="insert">
-        insert into orders (content, total, user_id, time, status, order_no)
-        values (#{content}, #{total}, #{userId}, #{time}, #{status}, #{orderNo})
+        insert into orders (content, total, user_id, user_role, time, status, order_no)
+        values (#{content}, #{total}, #{userId}, #{userRole}, #{time}, #{status}, #{orderNo})
     </insert>
 
 
@@ -16,6 +16,7 @@
             <if test="content != null">content = #{content},</if>
             <if test="total != null">total = #{total},</if>
             <if test="userId != null">user_id = #{userId},</if>
+            <if test="userRole != null">user_role = #{userRole},</if>
             <if test="time != null">time = #{time},</if>
             <if test="status != null">status = #{status},</if>
             <if test="orderNo != null">order_no = #{orderNo},</if>
@@ -41,6 +42,20 @@
             </if>
         </where>
         order by orders.id desc
+    </select>
+
+    <select id="selectTotalByStatus" resultType="java.math.BigDecimal">
+        select coalesce(sum(orders.total), 0) from orders
+        left join user on orders.user_id = user.id
+        <where>
+            and orders.status = #{status}
+            <if test="userName != null">
+                and user.name like concat('%', #{userName}, '%')
+            </if>
+            <if test="userId != null">
+                and orders.user_id = #{userId}
+            </if>
+        </where>
     </select>
 
 

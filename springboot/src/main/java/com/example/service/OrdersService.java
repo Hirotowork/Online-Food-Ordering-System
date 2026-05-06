@@ -2,6 +2,9 @@ package com.example.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
+import com.example.common.AuthContext;
+import com.example.common.RoleEnum;
 import com.example.entity.Orders;
 import com.example.entity.User;
 import com.example.exception.CustomException;
@@ -25,12 +28,11 @@ public class OrdersService {
     @Resource
     UserMapper userMapper;
 
-
     public void add(Orders orders) {
-        // 设置唯一的订单号
+        this.prepareOrderForInsert(orders);
         String orderNo = IdUtil.fastSimpleUUID();
         orders.setOrderNo(orderNo);
-        orders.setTime(DateUtil.now());  // 当前的年月日 时分秒
+        orders.setTime(DateUtil.now());
         ordersMapper.insert(orders);
     }
 
@@ -58,7 +60,7 @@ public class OrdersService {
         if (dbOrder == null) {
             throw new CustomException("订单不存在");
         }
-        // 扣减用户余额
+
         if ("已完成".equals(orders.getStatus()) && !"已完成".equals(dbOrder.getStatus())) {
             this.deductUserBalance(dbOrder);
         }
@@ -73,6 +75,11 @@ public class OrdersService {
         return ordersMapper.selectAll(userName, userId);
     }
 
+    public BigDecimal selectTotalIncome(String userName, Integer userId) {
+        BigDecimal totalIncome = ordersMapper.selectTotalByStatus(userName, userId, "已完成");
+        return totalIncome == null ? BigDecimal.ZERO : totalIncome;
+    }
+
     public List<Orders> selectMyOrders(Integer currentUserId) {
         if (currentUserId == null) {
             throw new CustomException("请先登录");
@@ -84,6 +91,7 @@ public class OrdersService {
         if (currentUserId == null) {
             throw new CustomException("请先登录");
         }
+
         Orders dbOrder = this.selectById(orderId);
         if (dbOrder == null) {
             throw new CustomException("订单不存在");
@@ -113,11 +121,38 @@ public class OrdersService {
         return PageInfo.of(list);
     }
 
+    private void prepareOrderForInsert(Orders orders) {
+        if (orders.getUserId() == null) {
+            throw new CustomException("用户信息不能为空");
+        }
+
+        if (StrUtil.isBlank(orders.getStatus())) {
+            orders.setStatus("待结算");
+        }
+
+        if (StrUtil.isNotBlank(orders.getUserRole())) {
+            return;
+        }
+
+        String currentRole = AuthContext.getCurrentRole();
+        if (StrUtil.isNotBlank(currentRole)) {
+            orders.setUserRole(currentRole);
+            return;
+        }
+
+        User user = userMapper.selectById(orders.getUserId());
+        if (user == null) {
+            throw new CustomException("用户不存在");
+        }
+        orders.setUserRole(StrUtil.blankToDefault(user.getRole(), RoleEnum.USER.name()));
+    }
+
     private void deductUserBalance(Orders orders) {
         User user = userMapper.selectById(orders.getUserId());
         if (user == null) {
             throw new CustomException("用户不存在");
         }
+
         BigDecimal total = orders.getTotal();
         BigDecimal account = user.getAccount().subtract(total);
         if (account.doubleValue() < 0) {
@@ -126,5 +161,4 @@ public class OrdersService {
         user.setAccount(account);
         userMapper.updateById(user);
     }
-
 }

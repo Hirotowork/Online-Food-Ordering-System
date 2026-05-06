@@ -17,15 +17,16 @@
         <el-table-column prop="content" label="菜单内容" />
         <el-table-column prop="total" label="订单总价">
           <template #default="scope">
-            <strong style="color: red">￥{{ scope.row.total }}</strong>
+            <strong style="color: red">￥{{ formatMoney(scope.row.total) }}</strong>
           </template>
         </el-table-column>
         <el-table-column prop="userName" label="用户名称" />
         <el-table-column prop="status" label="订单状态">
           <template #default="scope">
             <el-tag v-if="scope.row.status === '待出餐'" type="primary">{{ scope.row.status }}</el-tag>
-            <el-tag v-if="scope.row.status === '待结算'" type="warning">{{ scope.row.status }}</el-tag>
-            <el-tag v-if="scope.row.status === '已完成'" type="success">{{ scope.row.status }}</el-tag>
+            <el-tag v-else-if="scope.row.status === '待结算'" type="warning">{{ scope.row.status }}</el-tag>
+            <el-tag v-else-if="scope.row.status === '已完成'" type="success">{{ scope.row.status }}</el-tag>
+            <el-tag v-else>{{ scope.row.status }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180">
@@ -52,7 +53,7 @@
       </el-table>
     </div>
 
-    <div v-if="data.total" class="card">
+    <div v-if="data.total" class="card summary-card">
       <el-pagination
         v-model:current-page="data.pageNum"
         background
@@ -61,14 +62,17 @@
         :total="data.total"
         @current-change="load"
       />
+      <div class="income-box">
+        总收入：<span class="income-value">￥{{ formatMoney(data.totalIncome) }}</span>
+      </div>
     </div>
 
-    <el-dialog v-model="data.formVisible" title="信息" width="30%" destroy-on-close>
+    <el-dialog v-model="data.formVisible" title="订单信息" width="30%" destroy-on-close>
       <el-form :model="data.form" label-width="100px" style="padding-right: 50px">
         <el-form-item label="订单状态">
           <el-select v-model="data.form.status" style="width: 100%">
-            <el-option value="待出餐" />
-            <el-option value="待结算" />
+            <el-option value="待出餐" label="待出餐" />
+            <el-option value="待结算" label="待结算" />
           </el-select>
         </el-form-item>
       </el-form>
@@ -83,7 +87,7 @@
 </template>
 
 <script setup>
-import { reactive } from "vue"
+import { reactive } from "vue";
 import request from "@/utils/request";
 import { ElMessage, ElMessageBox } from "element-plus";
 
@@ -91,12 +95,46 @@ const data = reactive({
   user: JSON.parse(localStorage.getItem('canteen-user') || '{}'),
   tableData: [],
   total: 0,
+  totalIncome: 0,
   pageNum: 1,
-  pageSize: 5,
+  pageSize: 10,
   formVisible: false,
   form: {},
   userName: '',
 })
+
+const formatMoney = (value) => {
+  return Number(value || 0).toFixed(2)
+}
+
+const getQueryParams = () => {
+  return {
+    userName: data.userName,
+    userId: data.user.role === 'USER' ? data.user.id : null
+  }
+}
+
+const loadIncome = () => {
+  request.get('/orders/income', {
+    params: getQueryParams()
+  }).then(res => {
+    data.totalIncome = Number(res.data || 0)
+  })
+}
+
+const load = () => {
+  request.get('/orders/selectPage', {
+    params: {
+      pageNum: data.pageNum,
+      pageSize: data.pageSize,
+      ...getQueryParams()
+    }
+  }).then(res => {
+    data.tableData = res.data?.list || []
+    data.total = res.data?.total || 0
+  })
+  loadIncome()
+}
 
 const done = (row) => {
   const form = JSON.parse(JSON.stringify(row))
@@ -111,24 +149,11 @@ const done = (row) => {
   })
 }
 
-const load = () => {
-  request.get('/orders/selectPage', {
-    params: {
-      pageNum: data.pageNum,
-      pageSize: data.pageSize,
-      userName: data.userName,
-      userId: data.user.role === 'USER' ? data.user.id : null
-    }
-  }).then(res => {
-    data.tableData = res.data?.list || []
-    data.total = res.data.total
-  })
-}
-
 load()
 
 const reset = () => {
-  data.userName = null
+  data.userName = ''
+  data.pageNum = 1
   load()
 }
 
@@ -168,3 +193,25 @@ const del = (id) => {
   })
 }
 </script>
+
+<style scoped>
+.summary-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.income-box {
+  min-width: 180px;
+  text-align: right;
+  font-size: 16px;
+  color: #333;
+}
+
+.income-value {
+  color: #d03050;
+  font-size: 22px;
+  font-weight: bold;
+}
+</style>

@@ -3,7 +3,7 @@ const config = {
   baseUrl: 'http://127.0.0.1:9090',
   assetBaseUrl: 'http://127.0.0.1:9090',
   // legacy: 直接使用旧接口；modern: 直接使用新接口；auto: 先新后旧
-  apiMode: 'legacy',
+  apiMode: 'modern',
   requestTimeout: 15000,
   storageKeys: {
     token: 'canteen-token',

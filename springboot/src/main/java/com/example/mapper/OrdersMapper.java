@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface OrdersMapper {
@@ -19,5 +20,9 @@ public interface OrdersMapper {
     Orders selectById(Integer id);
 
     List<Orders> selectAll(@Param("userName") String userName, @Param("userId") Integer userId);
+
+    BigDecimal selectTotalByStatus(@Param("userName") String userName,
+                                   @Param("userId") Integer userId,
+                                   @Param("status") String status);
 
 }

@@ -1,8 +1,10 @@
 <view class="page login-page">
   <view class="hero">
-    <view class="hero-badge">USER MINIAPP</view>
-    <view class="hero-title">食堂点餐用户端</view>
-    <view class="hero-subtitle">登录后即可开始选桌和点餐。</view>
+    <view class="hero-title">点餐用户系统</view>
+    <view class="hero-subtitle">
+      <text wx:if="{{mode === 'login'}}">登录后即可开始选座和点餐。</text>
+      <text wx:else>注册用户账号后即可登录点餐。</text>
+    </view>
   </view>
 
   <view class="card form-card">
@@ -15,6 +17,17 @@
       bindinput="onUsernameInput"
     />
 
+    <view wx:if="{{mode === 'register'}}">
+      <view class="field-label">名称</view>
+      <input
+        class="field-input"
+        type="text"
+        placeholder="请输入名称，可不填"
+        value="{{form.name}}"
+        bindinput="onNameInput"
+      />
+    </view>
+
     <view class="field-label">密码</view>
     <input
       class="field-input"
@@ -24,8 +37,40 @@
       bindinput="onPasswordInput"
     />
 
-    <button class="primary-btn" loading="{{loading}}" disabled="{{loading}}" bindtap="submitLogin">
-      登录并进入点餐
+    <view wx:if="{{mode === 'register'}}">
+      <view class="field-label">确认密码</view>
+      <input
+        class="field-input"
+        password="true"
+        placeholder="请再次输入密码"
+        value="{{form.confirmPassword}}"
+        bindinput="onConfirmPasswordInput"
+      />
+    </view>
+
+    <button
+      wx:if="{{mode === 'login'}}"
+      class="primary-btn"
+      loading="{{loading}}"
+      disabled="{{loading}}"
+      bindtap="submitLogin"
+    >
+      登录
+    </button>
+
+    <button
+      wx:else
+      class="primary-btn"
+      loading="{{loading}}"
+      disabled="{{loading}}"
+      bindtap="submitRegister"
+    >
+      注册
+    </button>
+
+    <button class="secondary-btn switch-btn" bindtap="switchMode">
+      <text wx:if="{{mode === 'login'}}">注册用户</text>
+      <text wx:else>返回登录</text>
     </button>
   </view>
 </view>

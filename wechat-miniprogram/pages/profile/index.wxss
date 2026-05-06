@@ -1,5 +1,5 @@
 .profile-card {
-  background: linear-gradient(135deg, #0f172a, #1f2937);
+  background: #1450aa;
   color: #ffffff;
 }
 
@@ -14,7 +14,7 @@
   height: 132rpx;
   border-radius: 999rpx;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.12);
+  background: #F9B44C;
   flex-shrink: 0;
 }
 
@@ -44,7 +44,7 @@
 
 .profile-meta {
   margin-top: 12rpx;
-  color: rgba(255, 255, 255, 0.72);
+  color: #e7efff;
 }
 
 .form-card {
@@ -62,8 +62,8 @@
   padding: 0 28rpx;
   margin-bottom: 28rpx;
   border-radius: 20rpx;
-  background: #f8fafc;
-  border: 2rpx solid #dbe5e4;
+  background: #ffffff;
+  border: 2rpx solid #dbe6ff;
   box-sizing: border-box;
 }
 
@@ -78,15 +78,15 @@
   text-align: center;
   padding: 22rpx 0;
   border-radius: 20rpx;
-  background: #f8fafc;
-  border: 2rpx solid #dbe5e4;
+  background: #ffffff;
+  border: 2rpx solid #dbe6ff;
   color: #475569;
 }
 
 .segment-item-active {
-  background: #ecfeff;
-  color: #0f766e;
-  border-color: #99f6e4;
+  background: #e9eeff;
+  color: #1450aa;
+  border-color: #cfd9ff;
   font-weight: 700;
 }
 

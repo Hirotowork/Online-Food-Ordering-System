@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -87,6 +88,12 @@ public class OrdersController {
     public Result selectAll(String userName, Integer userId) {
         List<Orders> list = ordersService.selectAll(userName, userId);
         return Result.success(list);
+    }
+
+    @GetMapping("/income")
+    public Result income(String userName, Integer userId) {
+        BigDecimal totalIncome = ordersService.selectTotalIncome(userName, userId);
+        return Result.success(totalIncome);
     }
 
     /**

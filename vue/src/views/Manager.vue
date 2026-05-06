@@ -4,7 +4,7 @@
       <div style="flex: 1">
         <div style="padding-left: 20px; display: flex; align-items: center">
           <img src="@/assets/imgs/logo.png" alt="" style="width: 40px">
-          <div style="font-weight: bold; font-size: 24px; margin-left: 5px; color: #F9B44C">在线点餐系统</div>
+          <div style="font-weight: bold; font-size: 24px; margin-left: 5px; color: #F9B44C">点餐后台管理系统</div>
         </div>
       </div>
       <div style="width: fit-content; padding-right: 10px; display: flex; align-items: center;">
@@ -16,23 +16,16 @@
     <div style="display: flex">
       <div style="width: 200px; border-right: 1px solid #ddd; min-height: calc(100vh - 60px)">
         <el-menu
-            router
-            style="border: none"
-            :default-active="$route.path"
-            :default-openeds="['/home', '2']"
+          router
+          style="border: none"
+          :default-active="$route.path"
+          :default-openeds="['2', '3']"
         >
-          <el-menu-item index="/home">
-            <el-icon><HomeFilled /></el-icon>
-            <span>系统首页</span>
-          </el-menu-item>
-          <el-menu-item index="/order">
-            <el-icon><Dish /></el-icon>
-            <span>我的点餐</span>
-          </el-menu-item>
           <el-menu-item index="/orderManager">
-            <el-icon><List /></el-icon>
+            <el-icon><HomeFilled /></el-icon>
             <span>订单管理</span>
           </el-menu-item>
+
           <el-sub-menu index="2" v-if="data.user.role === 'ADMIN'">
             <template #title>
               <el-icon><User /></el-icon>
@@ -40,14 +33,15 @@
             </template>
             <el-menu-item index="/tables">
               <el-icon><Dish /></el-icon>
-              <span>餐桌信息</span>
+              <span>餐桌管理</span>
             </el-menu-item>
             <el-menu-item index="/foods">
               <el-icon><Bowl /></el-icon>
-              <span>餐品信息</span>
+              <span>餐品管理</span>
             </el-menu-item>
           </el-sub-menu>
-          <el-sub-menu index="3"  v-if="data.user.role === 'ADMIN'">
+
+          <el-sub-menu index="3" v-if="data.user.role === 'ADMIN'">
             <template #title>
               <el-icon><User /></el-icon>
               <span>用户管理</span>
@@ -61,10 +55,12 @@
               <span>顾客信息</span>
             </el-menu-item>
           </el-sub-menu>
+
           <el-menu-item index="/person">
-            <el-icon><User /></el-icon>
-            <span>个人资料</span>
+            <el-icon><Money /></el-icon>
+            <span>用户充值</span>
           </el-menu-item>
+
           <el-menu-item index="login" @click="logout">
             <el-icon><SwitchButton /></el-icon>
             <span>退出系统</span>
@@ -76,14 +72,14 @@
         <router-view @updateUser="updateUser" />
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import {reactive} from "vue";
-import { useRoute } from 'vue-router'
-import {User, UserFilled} from "@element-plus/icons-vue";
+import { reactive } from "vue";
+import { useRoute } from "vue-router";
+import { User, UserFilled } from "@element-plus/icons-vue";
+
 const $route = useRoute()
 
 const data = reactive({
@@ -103,11 +99,13 @@ const updateUser = () => {
 .el-menu-item.is-active {
   background-color: #e0e4ff !important;
 }
+
 .el-menu-item:hover {
   background-color: #e9eeff !important;
   color: #1450aa;
 }
-:deep(th)  {
+
+:deep(th) {
   color: #333;
 }
 </style>
