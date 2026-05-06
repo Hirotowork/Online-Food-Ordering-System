@@ -114,26 +114,27 @@ const getQueryParams = () => {
   }
 }
 
-const loadIncome = () => {
-  request.get('/orders/income', {
-    params: getQueryParams()
-  }).then(res => {
-    data.totalIncome = Number(res.data || 0)
-  })
-}
-
 const load = () => {
-  request.get('/orders/selectPage', {
-    params: {
-      pageNum: data.pageNum,
-      pageSize: data.pageSize,
-      ...getQueryParams()
-    }
-  }).then(res => {
-    data.tableData = res.data?.list || []
-    data.total = res.data?.total || 0
+  const queryParams = getQueryParams()
+
+  Promise.all([
+    request.get('/orders/selectPage', {
+      params: {
+        pageNum: data.pageNum,
+        pageSize: data.pageSize,
+        ...queryParams
+      }
+    }),
+    request.get('/orders/selectAll', {
+      params: queryParams
+    })
+  ]).then(([pageRes, allRes]) => {
+    data.tableData = pageRes.data?.list || []
+    data.total = pageRes.data?.total || 0
+
+    const completedOrders = (allRes.data || []).filter(item => item.status === '已完成')
+    data.totalIncome = completedOrders.reduce((sum, item) => sum + Number(item.total || 0), 0)
   })
-  loadIncome()
 }
 
 const done = (row) => {
@@ -197,13 +198,20 @@ const del = (id) => {
 <style scoped>
 .summary-card {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 16px;
 }
 
 .income-box {
+  margin-left: auto;
   min-width: 180px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #fff6f8;
+  border: 1px solid #f3c6d0;
+  box-shadow: 0 4px 12px rgba(208, 48, 80, 0.08);
   text-align: right;
   font-size: 16px;
   color: #333;
