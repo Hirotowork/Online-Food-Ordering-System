@@ -31,6 +31,9 @@ public class AdminService {
         if (!dbAdmin.getPassword().equals(account.getPassword())) {
             throw new CustomException("账号或者密码错误");
         }
+        if (ObjectUtil.isEmpty(dbAdmin.getRole())) {
+            dbAdmin.setRole(RoleEnum.ADMIN.name());
+        }
         return dbAdmin;
     }
 
