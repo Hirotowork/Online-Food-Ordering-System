@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <div class="login-title">点餐后台管理系统</div>
-      <div class="login-tip">网页端仅供管理员登录，用户请使用微信小程序点餐。</div>
+      <div class="login-title">订餐后台系统</div>
+      <div class="login-tip">网页端仅供管理员登录，用户请使用微信小程序订餐。</div>
 
       <el-form ref="formRef" :model="data.form" :rules="data.rules">
         <el-form-item prop="username">

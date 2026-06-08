@@ -3,7 +3,7 @@
     <view class="table-top">
       <view>
         <view class="page-title">餐桌 {{currentTable.no}}</view>
-        <view class="page-subtitle">{{currentTable.unit}}，已进入点餐状态</view>
+        <view class="page-subtitle">{{currentTable.unit}}，已进入订餐状态</view>
       </view>
       <button class="table-action" bindtap="openCart">购物车 {{cartCount}}</button>
     </view>
@@ -15,7 +15,7 @@
 
   <view wx:else class="card empty-card">
     <view class="page-title">还没有选桌</view>
-    <view class="page-subtitle">请先回到选桌页占用一个可用餐桌，再继续点餐和下单。</view>
+    <view class="page-subtitle">请先回到选桌页占用一个可用餐桌，再继续订餐和下单。</view>
     <button class="primary-btn" bindtap="goTablePage">去选桌</button>
   </view>
 

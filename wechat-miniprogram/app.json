@@ -7,7 +7,7 @@
     "pages/profile/index"
   ],
   "window": {
-    "navigationBarTitleText": "点餐用户系统",
+    "navigationBarTitleText": "订餐用户系统",
     "navigationBarBackgroundColor": "#1450aa",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#f8f8ff",
@@ -21,13 +21,13 @@
     "list": [
       {
         "pagePath": "pages/table/index",
-        "text": "选座",
+        "text": "选桌",
         "iconPath": "assets/tab/table-default.png",
         "selectedIconPath": "assets/tab/table-active.png"
       },
       {
         "pagePath": "pages/menu/index",
-        "text": "点餐",
+        "text": "订餐",
         "iconPath": "assets/tab/menu-default.png",
         "selectedIconPath": "assets/tab/menu-active.png"
       },
