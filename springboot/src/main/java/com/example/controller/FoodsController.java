@@ -65,8 +65,8 @@ public class FoodsController {
      * 查询所有
      */
     @GetMapping("/selectAll")
-    public Result selectAll(String name) {
-        List<Foods> list = foodsService.selectAll(name);
+    public Result selectAll(String name, String type) {
+        List<Foods> list = foodsService.selectAll(name, type);
         return Result.success(list);
     }
 
@@ -76,9 +76,10 @@ public class FoodsController {
     @GetMapping("/selectPage")
     public Result selectPage(
             String name,
+            String type,
             @RequestParam(defaultValue = "1") Integer pageNum,
             @RequestParam(defaultValue = "10") Integer pageSize) {
-        PageInfo<Foods> pageInfo = foodsService.selectPage(name, pageNum, pageSize);
+        PageInfo<Foods> pageInfo = foodsService.selectPage(name, type, pageNum, pageSize);
         return Result.success(pageInfo);
     }
 
