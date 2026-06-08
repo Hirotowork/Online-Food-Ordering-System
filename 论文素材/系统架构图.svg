@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980" role="img" aria-labelledby="title desc">
+  <title id="title">&#35746;&#39184;&#31995;&#32479;&#26550;&#26500;&#22270;</title>
+  <desc id="desc">&#22522;&#20110;&#39135;&#22530;&#35746;&#39184;&#31995;&#32479;&#27605;&#19994;&#35774;&#35745;&#23454;&#29616;&#30340;&#31995;&#32479;&#26550;&#26500;&#22270;&#65292;&#23637;&#31034;&#35775;&#38382;&#23618;&#12289;&#21069;&#31471;&#34920;&#31034;&#23618;&#12289;&#20132;&#20114;&#23618;&#12289;&#21518;&#31471;&#26381;&#21153;&#23618;&#12289;&#25968;&#25454;&#19982;&#36164;&#28304;&#23618;&#20197;&#21450;&#32479;&#19968;&#26435;&#38480;&#25511;&#21046;&#20043;&#38388;&#30340;&#20851;&#31995;&#12290;</desc>
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .panel { fill: #c6d8f0; stroke: #2c2c2c; stroke-width: 3; }
+      .card { fill: #ffffff; stroke: #2c2c2c; stroke-width: 2.4; }
+      .layer-label { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 32px; fill: #111111; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+      .panel-title { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 28px; fill: #0f2438; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+      .card-title { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 24px; fill: #111111; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+      .card-text { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 19px; fill: #111111; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+      .small-text { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 18px; fill: #243648; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+      .vertical-text { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 22px; fill: #111111; font-weight: 600; writing-mode: vertical-rl; text-orientation: mixed; letter-spacing: 2px; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="980"/>
+
+  <text class="panel-title" x="800" y="42">&#35746;&#39184;&#31995;&#32479;&#26550;&#26500;&#22270;</text>
+
+  <rect class="panel" x="6" y="72" width="190" height="92"/>
+  <text class="layer-label" x="101" y="118">&#35775;&#38382;&#23618;</text>
+  <rect class="panel" x="226" y="72" width="1174" height="92"/>
+  <rect class="card" x="430" y="95" width="250" height="48" rx="8" ry="8"/>
+  <text class="card-title" x="555" y="119">Web &#31649;&#29702;&#31471;&#65288;PC&#65289;</text>
+  <rect class="card" x="930" y="95" width="250" height="48" rx="8" ry="8"/>
+  <text class="card-title" x="1055" y="119">&#24494;&#20449;&#23567;&#31243;&#24207;&#31471;</text>
+
+  <rect class="panel" x="6" y="196" width="190" height="108"/>
+  <text class="layer-label" x="101" y="250">&#21069;&#31471;&#34920;&#31034;&#23618;</text>
+  <rect class="panel" x="226" y="196" width="1174" height="108"/>
+  <rect class="card" x="290" y="225" width="180" height="50" rx="8" ry="8"/>
+  <text class="card-title" x="380" y="250">Vue 3</text>
+  <rect class="card" x="540" y="225" width="220" height="50" rx="8" ry="8"/>
+  <text class="card-title" x="650" y="250">Element Plus</text>
+  <rect class="card" x="835" y="225" width="180" height="50" rx="8" ry="8"/>
+  <text class="card-title" x="925" y="250">WXML</text>
+  <rect class="card" x="1085" y="225" width="180" height="50" rx="8" ry="8"/>
+  <text class="card-title" x="1175" y="250">WXSS</text>
+
+  <rect class="panel" x="6" y="336" width="190" height="272"/>
+  <text class="layer-label" x="101" y="472">&#20132;&#20114;&#23618;</text>
+  <rect class="panel" x="226" y="336" width="1024" height="272"/>
+  <text class="panel-title" x="738" y="372">&#32479;&#19968;&#21069;&#31471;&#20132;&#20114;&#19982;&#39029;&#38754;&#36923;&#36753;</text>
+  <rect class="card" x="300" y="418" width="250" height="90" rx="8" ry="8"/>
+  <text class="card-title" x="425" y="446">Vue Router</text>
+  <text class="small-text" x="425" y="482">&#21518;&#21488;&#39029;&#38754;&#36335;&#30001;&#19982;&#24067;&#23616;&#32452;&#32455;</text>
+  <rect class="card" x="610" y="418" width="250" height="90" rx="8" ry="8"/>
+  <text class="card-title" x="735" y="446">Axios</text>
+  <text class="small-text" x="735" y="482">Web &#31649;&#29702;&#31471;&#25509;&#21475;&#35831;&#27714;&#23553;&#35013;</text>
+  <rect class="card" x="920" y="418" width="250" height="90" rx="8" ry="8"/>
+  <text class="card-title" x="1045" y="446">wx.request</text>
+  <text class="small-text" x="1045" y="482">&#23567;&#31243;&#24207;&#31471;&#32593;&#32476;&#36890;&#20449;&#33021;&#21147;</text>
+  <rect class="card" x="425" y="520" width="620" height="62" rx="8" ry="8"/>
+  <text class="card-text" x="735" y="544">Storage + &#26412;&#22320;&#32531;&#23384; + Token</text>
+  <text class="card-text" x="735" y="566">&#30331;&#24405;&#24577;&#31649;&#29702; + &#22270;&#29255; URL &#36866;&#37197;</text>
+
+  <rect class="panel" x="1268" y="196" width="132" height="680"/>
+  <text class="vertical-text" x="1289" y="463">&#32479;&#19968;&#26435;&#38480;&#25511;&#21046;</text>
+  <text class="vertical-text" x="1319" y="499">JWT</text>
+  <text class="vertical-text" x="1349" y="487">&#35282;&#33394;&#26657;&#39564;</text>
+  <text class="vertical-text" x="1379" y="499">&#25318;&#25130;&#22120;</text>
+
+  <rect class="panel" x="6" y="640" width="190" height="236"/>
+  <text class="layer-label" x="101" y="758">&#21518;&#31471;&#26381;&#21153;&#23618;</text>
+  <rect class="panel" x="226" y="640" width="1024" height="236"/>
+  <text class="panel-title" x="738" y="676">Spring Boot 3.2 + REST API</text>
+  <rect class="card" x="530" y="708" width="420" height="44" rx="8" ry="8"/>
+  <text class="card-title" x="740" y="730">Controller &#23618;</text>
+  <rect class="card" x="530" y="768" width="420" height="44" rx="8" ry="8"/>
+  <text class="card-title" x="740" y="790">Service &#23618;</text>
+  <rect class="card" x="530" y="828" width="420" height="44" rx="8" ry="8"/>
+  <text class="card-title" x="740" y="850">Mapper &#23618; / MyBatis XML</text>
+  <rect class="card" x="280" y="736" width="180" height="104" rx="8" ry="8"/>
+  <text class="card-title" x="370" y="764">&#36890;&#29992;&#33021;&#21147;</text>
+  <text class="small-text" x="370" y="798">Result &#32479;&#19968;&#21709;&#24212;</text>
+  <text class="small-text" x="370" y="826">&#25991;&#20214;&#19978;&#20256;&#19979;&#36733;</text>
+  <rect class="card" x="1010" y="736" width="180" height="104" rx="8" ry="8"/>
+  <text class="card-title" x="1100" y="764">&#26680;&#24515;&#19994;&#21153;</text>
+  <text class="small-text" x="1100" y="798">&#29992;&#25143; / &#39184;&#26700; / &#33756;&#21697;</text>
+  <text class="small-text" x="1100" y="826">&#35746;&#21333; / &#32467;&#31639; / &#25910;&#20837;&#32479;&#35745;</text>
+
+  <rect class="panel" x="6" y="908" width="190" height="64"/>
+  <text class="layer-label" x="101" y="940">&#25968;&#25454;&#19982;&#36164;&#28304;&#23618;</text>
+  <rect class="panel" x="226" y="908" width="770" height="64"/>
+  <text class="panel-title" x="611" y="940">MySQL</text>
+  <rect class="panel" x="1026" y="908" width="374" height="64"/>
+  <text class="panel-title" x="1213" y="940">photo &#22270;&#29255;&#36164;&#28304;&#30446;&#24405;</text>
+</svg>
