@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980" role="img" aria-labelledby="title desc">
+  <title id="title">订餐系统用例图</title>
+  <desc id="desc">展示管理员和普通用户与订餐系统核心功能之间关系的系统用例图。</desc>
+  <defs>
+    <style>
+      .bg { fill: #f5f7fb; }
+      .frame { fill: #ffffff; stroke: #2f4f6f; stroke-width: 3; }
+      .title { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 28px; font-weight: 700; fill: #1f2d3d; }
+      .subtitle { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 18px; fill: #49627a; }
+      .actor-label { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 22px; font-weight: 700; fill: #203548; }
+      .actor-line { stroke: #2e526f; stroke-width: 4; stroke-linecap: round; fill: none; }
+      .actor-head { fill: #ffffff; stroke: #2e526f; stroke-width: 4; }
+      .usecase { fill: #fbfdff; stroke: #527796; stroke-width: 2.5; }
+      .usecase-title { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 20px; font-weight: 600; fill: #1e3346; text-anchor: middle; dominant-baseline: middle; }
+      .connector { stroke: #6f8ca5; stroke-width: 2.5; stroke-linecap: round; fill: none; }
+      .legend { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 17px; fill: #5d7287; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="980"/>
+
+  <text class="title" x="800" y="52" text-anchor="middle">订餐系统用例图</text>
+  <text class="subtitle" x="800" y="84" text-anchor="middle">Ordering System Use Case Diagram</text>
+
+  <rect class="frame" x="270" y="110" rx="26" ry="26" width="1060" height="790"/>
+  <text class="title" x="800" y="152" text-anchor="middle">订餐系统</text>
+
+  <g transform="translate(110 300)">
+    <circle class="actor-head" cx="0" cy="0" r="28"/>
+    <path class="actor-line" d="M0 28 L0 128"/>
+    <path class="actor-line" d="M-46 72 L46 72"/>
+    <path class="actor-line" d="M0 128 L-42 190"/>
+    <path class="actor-line" d="M0 128 L42 190"/>
+    <text class="actor-label" x="0" y="235" text-anchor="middle">管理员</text>
+  </g>
+
+  <g transform="translate(1490 300)">
+    <circle class="actor-head" cx="0" cy="0" r="28"/>
+    <path class="actor-line" d="M0 28 L0 128"/>
+    <path class="actor-line" d="M-46 72 L46 72"/>
+    <path class="actor-line" d="M0 128 L-42 190"/>
+    <path class="actor-line" d="M0 128 L42 190"/>
+    <text class="actor-label" x="0" y="235" text-anchor="middle">普通用户</text>
+  </g>
+
+  <ellipse class="usecase" cx="520" cy="215" rx="122" ry="42"/>
+  <text class="usecase-title" x="520" y="215">管理员登录</text>
+
+  <ellipse class="usecase" cx="1080" cy="215" rx="138" ry="42"/>
+  <text class="usecase-title" x="1080" y="215">用户注册与登录</text>
+
+  <ellipse class="usecase" cx="520" cy="320" rx="122" ry="42"/>
+  <text class="usecase-title" x="520" y="320">管理订单</text>
+
+  <ellipse class="usecase" cx="520" cy="430" rx="122" ry="42"/>
+  <text class="usecase-title" x="520" y="430">管理餐桌</text>
+
+  <ellipse class="usecase" cx="520" cy="540" rx="122" ry="42"/>
+  <text class="usecase-title" x="520" y="540">管理菜品</text>
+
+  <ellipse class="usecase" cx="520" cy="650" rx="122" ry="42"/>
+  <text class="usecase-title" x="520" y="650">管理用户</text>
+
+  <ellipse class="usecase" cx="520" cy="760" rx="122" ry="42"/>
+  <text class="usecase-title" x="520" y="760">管理员管理</text>
+
+  <ellipse class="usecase" cx="800" cy="815" rx="140" ry="40"/>
+  <text class="usecase-title" x="800" y="815">统计订单收入</text>
+
+  <ellipse class="usecase" cx="1080" cy="320" rx="138" ry="42"/>
+  <text class="usecase-title" x="1080" y="320">个人资料管理</text>
+
+  <ellipse class="usecase" cx="1080" cy="430" rx="158" ry="42"/>
+  <text class="usecase-title" x="1080" y="430">查看餐桌与当前餐桌</text>
+
+  <ellipse class="usecase" cx="1080" cy="540" rx="138" ry="42"/>
+  <text class="usecase-title" x="1080" y="540">选座与退桌</text>
+
+  <ellipse class="usecase" cx="1080" cy="650" rx="138" ry="42"/>
+  <text class="usecase-title" x="1080" y="650">浏览菜品</text>
+
+  <ellipse class="usecase" cx="1080" cy="760" rx="138" ry="42"/>
+  <text class="usecase-title" x="1080" y="760">购物车下单</text>
+
+  <ellipse class="usecase" cx="1080" cy="845" rx="158" ry="42"/>
+  <text class="usecase-title" x="1080" y="845">查看订单与结算</text>
+
+  <path class="connector" d="M156 340 C230 285, 330 235, 398 222"/>
+  <path class="connector" d="M156 360 C228 350, 328 334, 398 325"/>
+  <path class="connector" d="M156 390 C228 405, 328 430, 398 430"/>
+  <path class="connector" d="M156 425 C228 465, 328 530, 398 540"/>
+  <path class="connector" d="M156 455 C228 545, 328 635, 398 645"/>
+  <path class="connector" d="M156 485 C230 640, 330 740, 398 755"/>
+  <path class="connector" d="M156 505 C285 705, 510 806, 660 815"/>
+
+  <path class="connector" d="M1444 340 C1370 285, 1270 235, 1218 222"/>
+  <path class="connector" d="M1444 365 C1372 352, 1272 326, 1218 320"/>
+  <path class="connector" d="M1444 395 C1372 410, 1272 430, 1238 430"/>
+  <path class="connector" d="M1444 425 C1372 475, 1272 535, 1218 540"/>
+  <path class="connector" d="M1444 460 C1372 565, 1272 643, 1218 650"/>
+  <path class="connector" d="M1444 492 C1372 676, 1272 752, 1218 760"/>
+  <path class="connector" d="M1444 518 C1372 760, 1272 836, 1238 842"/>
+
+  <text class="legend" x="300" y="940">说明：该图从论文视角归纳系统核心参与者与业务用例，覆盖管理员端与微信小程序用户端主要功能。</text>
+</svg>

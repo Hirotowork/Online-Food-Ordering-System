@@ -2,51 +2,16 @@
 .DS_Store
 Thumbs.db
 Desktop.ini
-$RECYCLE.BIN/
 
-# Editors / IDEs
+# IDE
 .idea/
 .vscode/
-.history/
 *.iml
-*.ipr
-*.iws
-*.suo
-*.user
-*.userossc
-*.sln.docstates
-.classpath
-.project
-.settings/
-.factorypath
 
-# Logs and runtime files
+# Logs
 *.log
-*.log.*
-logs/
-*.pid
-*.pid.lock
-hs_err_pid*
-replay_pid*
-
-# Java / Maven / JVM build output
-**/target/
-**/build/
-**/out/
-*.class
-*.jar
-*.war
-*.nar
-dependency-reduced-pom.xml
-.flattened-pom.xml
-
-# Frontend / Node.js
-**/node_modules/
-**/dist/
-**/.vite/
-**/coverage/
-**/.cache/
-**/*.tsbuildinfo
+*.out
+*.err
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -56,23 +21,45 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+!.env.development.example
+!.env.production.example
 
-# Local temp files
-*.tmp
-*.temp
-*.swp
-*.swo
-*~
-*.bak
-*.orig
-*.rej
-*.local
+# Java / Maven / Spring Boot
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/
 
-# Runtime uploads / local assets
-/files/
-/photo/
+# Node / Vue
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.vite/
+coverage/
 
-# WeChat Mini Program local config / dependencies
+# WeChat Mini Program
+project.private.config.json
 wechat-miniprogram/project.private.config.json
-wechat-miniprogram/miniprogram_npm/
-wechat-miniprogram/node_modules/
+
+# Runtime / temp
+tmp/
+temp/
+*.tmp
+
+# Local caches
+.cache/
+.eslintcache
+
+# Generated archives
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+
+# Optional local docs exports
+~$*.docx
