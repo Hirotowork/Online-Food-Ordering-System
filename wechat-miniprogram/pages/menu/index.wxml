@@ -3,7 +3,7 @@
     <view class="table-top">
       <view>
         <view class="page-title">餐桌 {{currentTable.no}}</view>
-        <view class="page-subtitle">{{currentTable.unit}}，已进入点餐状态</view>
+        <view class="page-subtitle">{{currentTable.unit}}，已进入订餐状态</view>
       </view>
       <button class="table-action" bindtap="openCart">购物车 {{cartCount}}</button>
     </view>
@@ -15,20 +15,32 @@
 
   <view wx:else class="card empty-card">
     <view class="page-title">还没有选桌</view>
-    <view class="page-subtitle">请先回到选桌页占用一个可用餐桌，再继续点餐和下单。</view>
+    <view class="page-subtitle">请先回到选桌页占用一个可用餐桌，再继续订餐和下单。</view>
     <button class="primary-btn" bindtap="goTablePage">去选桌</button>
   </view>
 
   <view class="section-row">
     <view class="section-title">今日菜品</view>
-    <view class="muted">{{foods.length}} 道菜</view>
+    <view class="muted">{{displayedFoods.length}} 道菜</view>
   </view>
 
-  <view wx:if="{{!loading && foods.length === 0}}" class="card empty-state">
-    当前没有菜品数据
+  <view class="filter-row">
+    <view class="filter-label">分类</view>
+    <picker
+      mode="selector"
+      range="{{typeOptions}}"
+      value="{{selectedTypeIndex}}"
+      bindchange="onTypeChange"
+    >
+      <view class="filter-picker">{{selectedType}}</view>
+    </picker>
   </view>
 
-  <view wx:for="{{foods}}" wx:key="id" class="card food-card">
+  <view wx:if="{{!loading && displayedFoods.length === 0}}" class="card empty-state">
+    当前分类下暂无菜品
+  </view>
+
+  <view wx:for="{{displayedFoods}}" wx:key="id" class="card food-card">
     <image
       class="food-image"
       src="{{item.img || fallbackImage}}"
@@ -40,18 +52,21 @@
         <view class="food-name">{{item.name}}</view>
         <view class="food-price">￥{{item.price}}</view>
       </view>
+      <view class="food-meta">
+        <view class="food-tag">{{item.type || '未分类'}}</view>
+      </view>
       <view class="food-descr">{{item.descr || '暂无菜品描述'}}</view>
 
       <view class="food-footer">
         <view class="stepper">
-          <button class="stepper-btn" data-index="{{index}}" bindtap="decreaseDraftCount">-</button>
+          <button class="stepper-btn" data-id="{{item.id}}" bindtap="decreaseDraftCount">-</button>
           <view class="stepper-value">{{item.draftCount}}</view>
-          <button class="stepper-btn" data-index="{{index}}" bindtap="increaseDraftCount">+</button>
+          <button class="stepper-btn" data-id="{{item.id}}" bindtap="increaseDraftCount">+</button>
         </view>
 
         <button
           class="mini-primary-btn"
-          data-index="{{index}}"
+          data-id="{{item.id}}"
           bindtap="addToCart"
           disabled="{{!currentTable}}"
         >

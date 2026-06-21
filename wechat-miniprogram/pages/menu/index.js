@@ -4,6 +4,8 @@ const { requestWithFallback } = require('../../utils/api')
 const { normalizeAssetUrl } = require('../../utils/url')
 
 const fallbackImage = '/assets/food-placeholder.png'
+const TYPE_ALL = '全部'
+const FOOD_TYPES = [TYPE_ALL, '素菜', '荤菜', '汤类']
 
 Page({
   data: {
@@ -13,6 +15,10 @@ Page({
     cartVisible: false,
     currentTable: null,
     foods: [],
+    displayedFoods: [],
+    selectedType: TYPE_ALL,
+    selectedTypeIndex: 0,
+    typeOptions: FOOD_TYPES,
     cartItems: [],
     cartCount: 0,
     cartTotal: 0,
@@ -66,32 +72,70 @@ Page({
         currentTable,
         foods
       })
+      this.applyTypeFilter()
       this.syncCartState(this.data.cartItems)
     } finally {
       this.setData({ loading: false })
     }
   },
 
+  onTypeChange(event) {
+    const selectedTypeIndex = Number(event.detail.value || 0)
+    const selectedType = this.data.typeOptions[selectedTypeIndex] || TYPE_ALL
+    this.setData({
+      selectedTypeIndex,
+      selectedType
+    })
+    this.applyTypeFilter()
+  },
+
+  applyTypeFilter() {
+    const selectedType = this.data.selectedType
+    const displayedFoods = this.data.foods.filter(item => {
+      if (selectedType === TYPE_ALL) {
+        return true
+      }
+      return item.type === selectedType
+    })
+
+    this.setData({
+      displayedFoods
+    })
+  },
+
+  getFoodIndexById(foodId) {
+    return this.data.foods.findIndex(item => String(item.id) === String(foodId))
+  },
+
   increaseDraftCount(event) {
-    const index = event.currentTarget.dataset.index
+    const foodId = event.currentTarget.dataset.id
+    const index = this.getFoodIndexById(foodId)
     const current = this.data.foods[index]
-    if (!current) {
+    if (index === -1 || !current) {
       return
     }
+
+    const nextCount = (current.draftCount || 1) + 1
     this.setData({
-      [`foods[${index}].draftCount`]: (current.draftCount || 1) + 1
+      [`foods[${index}].draftCount`]: nextCount
+    }, () => {
+      this.applyTypeFilter()
     })
   },
 
   decreaseDraftCount(event) {
-    const index = event.currentTarget.dataset.index
+    const foodId = event.currentTarget.dataset.id
+    const index = this.getFoodIndexById(foodId)
     const current = this.data.foods[index]
-    if (!current) {
+    if (index === -1 || !current) {
       return
     }
+
     const next = Math.max(1, (current.draftCount || 1) - 1)
     this.setData({
       [`foods[${index}].draftCount`]: next
+    }, () => {
+      this.applyTypeFilter()
     })
   },
 
@@ -104,9 +148,10 @@ Page({
       return
     }
 
-    const index = event.currentTarget.dataset.index
+    const foodId = event.currentTarget.dataset.id
+    const index = this.getFoodIndexById(foodId)
     const food = this.data.foods[index]
-    if (!food) {
+    if (index === -1 || !food) {
       return
     }
 
@@ -120,6 +165,7 @@ Page({
       cartItems.push({
         id: food.id,
         name: food.name,
+        type: food.type,
         price: Number(food.price || 0),
         img: food.img,
         num: draftCount
@@ -128,6 +174,8 @@ Page({
 
     this.setData({
       [`foods[${index}].draftCount`]: 1
+    }, () => {
+      this.applyTypeFilter()
     })
     this.syncCartState(cartItems)
 

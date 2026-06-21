@@ -14,6 +14,11 @@
     <div class="card" style="margin-bottom: 10px">
       <el-table :data="data.tableData">
         <el-table-column prop="orderNo" label="订单编号" />
+        <el-table-column prop="time" label="下单时间" min-width="180">
+          <template #default="scope">
+            {{ formatOrderTime(scope.row.time) }}
+          </template>
+        </el-table-column>
         <el-table-column prop="content" label="菜单内容" />
         <el-table-column prop="total" label="订单总价">
           <template #default="scope">
@@ -105,6 +110,10 @@ const data = reactive({
 
 const formatMoney = (value) => {
   return Number(value || 0).toFixed(2)
+}
+
+const formatOrderTime = (value) => {
+  return value || '-'
 }
 
 const getQueryParams = () => {

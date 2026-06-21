@@ -21,17 +21,6 @@
       </div>
     </div>
 
-    <div class="card" style="margin-bottom: 10px;">
-      <el-input
-        v-model="data.no"
-        prefix-icon="Search"
-        style="width: 300px; margin-right: 10px"
-        placeholder="请输入餐桌号查询"
-      />
-      <el-button type="primary" @click="load">查询</el-button>
-      <el-button type="info" style="margin: 0 10px" @click="reset">重置</el-button>
-    </div>
-
     <div class="card" style="margin-bottom: 10px">
       <div style="margin-bottom: 10px">
         <el-button type="primary" @click="handleAdd">新增</el-button>
@@ -99,7 +88,6 @@ const data = reactive({
   pageSize: 5,
   formVisible: false,
   form: {},
-  no: '',
 })
 
 const loadOverview = () => {
@@ -112,8 +100,7 @@ const load = () => {
   request.get('/tables/selectPage', {
     params: {
       pageNum: data.pageNum,
-      pageSize: data.pageSize,
-      no: data.no
+      pageSize: data.pageSize
     }
   }).then(res => {
     data.tableData = res.data?.list || []
@@ -127,12 +114,6 @@ const refresh = () => {
 }
 
 refresh()
-
-const reset = () => {
-  data.no = ''
-  data.pageNum = 1
-  load()
-}
 
 const handleAdd = () => {
   data.form = {}

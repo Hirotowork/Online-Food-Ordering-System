@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class Foods {
     private Integer id;
     private String name;
+    private String type;
     private String descr;
     private BigDecimal price;
     private String img;
@@ -23,6 +24,14 @@ public class Foods {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDescr() {

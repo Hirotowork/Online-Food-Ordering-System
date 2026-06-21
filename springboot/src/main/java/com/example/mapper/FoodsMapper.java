@@ -1,6 +1,7 @@
 package com.example.mapper;
 
 import com.example.entity.Foods;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -17,7 +18,7 @@ public interface FoodsMapper {
     @Select("select * from foods where id = #{id}")
     Foods selectById(Integer id);
 
-    List<Foods> selectAll(String name);
+    List<Foods> selectAll(@Param("name") String name, @Param("type") String type);
 
     @Select("select * from foods where user_id = #{userId}")
     Foods selectByUserId(Integer userId);

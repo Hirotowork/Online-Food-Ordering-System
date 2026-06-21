@@ -1,14 +1,32 @@
 <template>
   <div>
     <div class="card" style="margin-bottom: 10px;">
-      <div style="margin-bottom: 12px; font-weight: bold;">全局餐品信息</div>
+      <div class="overview-header">
+        <div style="font-weight: bold;">全局菜品信息</div>
+        <el-select
+          v-model="data.overviewType"
+          placeholder="按分类查看"
+          style="width: 180px"
+          @change="handleOverviewTypeChange"
+        >
+          <el-option
+            v-for="option in data.typeOptions"
+            :key="option"
+            :label="option"
+            :value="option"
+          />
+        </el-select>
+      </div>
       <el-row :gutter="10">
-        <el-col :span="6" v-for="item in data.allFoods" :key="item.id">
+        <el-col :span="6" v-for="item in overviewFoods" :key="item.id">
           <div class="card food-card">
             <img :src="item.img" alt="" style="width: 100%; height: 220px; object-fit: cover">
             <div style="margin: 8px 0; color: #000; font-size: 18px; display: flex; align-items: center">
               <div style="flex: 1">{{ item.name }}</div>
               <div style="color: red; font-weight: bold">￥{{ item.price }}</div>
+            </div>
+            <div style="margin-bottom: 8px;">
+              <el-tag size="small" type="success">{{ item.type || '未分类' }}</el-tag>
             </div>
             <div style="color: #666">
               <el-tooltip
@@ -30,9 +48,22 @@
       <el-input
         v-model="data.name"
         prefix-icon="Search"
-        style="width: 300px; margin-right: 10px"
-        placeholder="请输入餐品名称查询"
+        style="width: 260px; margin-right: 10px"
+        placeholder="请输入菜品名称查询"
       />
+      <el-select
+        v-model="data.type"
+        placeholder="请选择分类"
+        style="width: 180px; margin-right: 10px"
+        @change="handleQueryTypeChange"
+      >
+        <el-option
+          v-for="option in data.typeOptions"
+          :key="option"
+          :label="option"
+          :value="option"
+        />
+      </el-select>
       <el-button type="primary" @click="load">查询</el-button>
       <el-button type="info" style="margin: 0 10px" @click="reset">重置</el-button>
     </div>
@@ -43,6 +74,11 @@
       </div>
       <el-table :data="data.tableData">
         <el-table-column prop="name" label="名称" />
+        <el-table-column prop="type" label="分类" width="120">
+          <template #default="scope">
+            <el-tag size="small" type="success">{{ scope.row.type || '未分类' }}</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="descr" label="简介" />
         <el-table-column prop="price" label="价格" />
         <el-table-column label="图片">
@@ -76,10 +112,20 @@
       />
     </div>
 
-    <el-dialog v-model="data.formVisible" title="餐品信息" width="40%" destroy-on-close>
+    <el-dialog v-model="data.formVisible" title="菜品信息" width="40%" destroy-on-close>
       <el-form :model="data.form" label-width="100px" style="padding-right: 50px">
         <el-form-item label="名称">
           <el-input v-model="data.form.name" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="分类" required>
+          <el-select v-model="data.form.type" placeholder="请选择菜品分类" style="width: 100%">
+            <el-option
+              v-for="option in data.formTypeOptions"
+              :key="option"
+              :label="option"
+              :value="option"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item label="简介">
           <el-input v-model="data.form.descr" type="textarea" autocomplete="off" />
@@ -104,9 +150,12 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import request from "@/utils/request";
+
+const TYPE_ALL = '全部'
+const FOOD_TYPES = ['素菜', '荤菜', '汤类']
 
 const data = reactive({
   allFoods: [],
@@ -117,7 +166,20 @@ const data = reactive({
   formVisible: false,
   form: {},
   name: '',
+  type: TYPE_ALL,
+  overviewType: TYPE_ALL,
+  typeOptions: [TYPE_ALL, ...FOOD_TYPES],
+  formTypeOptions: FOOD_TYPES
 })
+
+const overviewFoods = computed(() => {
+  if (data.overviewType === TYPE_ALL) {
+    return data.allFoods
+  }
+  return data.allFoods.filter(item => item.type === data.overviewType)
+})
+
+const normalizeTypeParam = (type) => (type && type !== TYPE_ALL ? type : '')
 
 const loadOverview = () => {
   request.get('/foods/selectAll').then(res => {
@@ -130,7 +192,8 @@ const load = () => {
     params: {
       pageNum: data.pageNum,
       pageSize: data.pageSize,
-      name: data.name
+      name: data.name,
+      type: normalizeTypeParam(data.type)
     }
   }).then(res => {
     data.tableData = res.data?.list || []
@@ -147,6 +210,17 @@ refresh()
 
 const reset = () => {
   data.name = ''
+  data.type = TYPE_ALL
+  data.overviewType = TYPE_ALL
+  data.pageNum = 1
+  refresh()
+}
+
+const handleOverviewTypeChange = () => {
+  loadOverview()
+}
+
+const handleQueryTypeChange = () => {
   data.pageNum = 1
   load()
 }
@@ -157,6 +231,11 @@ const handleAdd = () => {
 }
 
 const save = () => {
+  if (!data.form.type) {
+    ElMessage.warning('请选择菜品分类')
+    return
+  }
+
   request.request({
     method: data.form.id ? 'PUT' : 'POST',
     url: data.form.id ? '/foods/update' : '/foods/add',
@@ -198,6 +277,14 @@ const handleFileUpload = (file) => {
 </script>
 
 <style scoped>
+.overview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
 .food-card {
   margin-bottom: 10px;
 }

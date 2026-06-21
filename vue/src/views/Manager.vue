@@ -4,7 +4,7 @@
       <div style="flex: 1">
         <div style="padding-left: 20px; display: flex; align-items: center">
           <img src="@/assets/imgs/logo.png" alt="" style="width: 40px">
-          <div style="font-weight: bold; font-size: 24px; margin-left: 5px; color: #F9B44C">点餐后台管理系统</div>
+          <div style="font-weight: bold; font-size: 24px; margin-left: 5px; color: #F9B44C">订餐后台系统</div>
         </div>
       </div>
       <div style="width: fit-content; padding-right: 10px; display: flex; align-items: center;">
@@ -37,7 +37,7 @@
             </el-menu-item>
             <el-menu-item index="/foods">
               <el-icon><Bowl /></el-icon>
-              <span>餐品管理</span>
+              <span>菜品管理</span>
             </el-menu-item>
           </el-sub-menu>
 

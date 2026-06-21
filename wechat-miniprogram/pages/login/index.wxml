@@ -1,8 +1,8 @@
 <view class="page login-page">
   <view class="hero">
-    <view class="hero-title">点餐用户系统</view>
+    <view class="hero-title">订餐用户系统</view>
     <view class="hero-subtitle">
-      <text wx:if="{{mode === 'login'}}">登录后即可开始选座和点餐。</text>
+      <text wx:if="{{mode === 'login'}}">登录后即可订餐。</text>
       <text wx:else>注册用户账号后即可登录点餐。</text>
     </view>
   </view>

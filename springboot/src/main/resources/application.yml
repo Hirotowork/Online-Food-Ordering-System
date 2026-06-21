@@ -1,8 +1,8 @@
 server:
-  port: 9090
+  port: ${SERVER_PORT:9090}
 
 app:
-  base-url: http://localhost:9090
+  base-url: http://localhost:${server.port}
 
 # 数据库配置
 spring:
